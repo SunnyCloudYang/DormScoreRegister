@@ -1,0 +1,121 @@
+:root {
+    width: max-content;
+    border-radius: 8px;
+    background: none;
+}
+
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    background-color: rgb(246, 239, 249);
+}
+
+div.panel {
+    padding: 1rem;
+    min-width: fit-content;
+    max-width: max-content;
+}
+
+div.header h3 {
+    margin-block-start: .2em;
+}
+
+div.quicklink {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+div.quicklink a {
+    text-decoration: none;
+    color: #000000;
+    margin-bottom: 0.2rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 18px;
+    background-color: rgb(232, 202, 245);
+    transition: background-color 0.2s;
+}
+
+div.quicklink a:hover {
+    background-color: rgb(220, 167, 237);
+}
+
+div.quicklink a:active {
+    background-color: rgb(214, 124, 242);
+}
+
+div.switch-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+div.switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+input[type='checkbox'] {
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 40px;
+    height: 19px;
+    background: #ccc;
+    border-radius: 10px;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+input[type='checkbox']::after {
+    content: '';
+    display: inline-block;
+    position: relative;
+    width: .7rem;
+    height: .7rem;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0, 0, 2px, #999;
+    transition: 0.4s;
+    top: 3px;
+    left: 3.6px;
+}
+
+input[type='checkbox']:checked {
+    background: rgba(195, 0, 255, 0.7);
+}
+
+input[type='checkbox']:checked::after {
+    content: '';
+    position: relative;
+    left: 62%;
+    top: 3px;
+}
+
+input[type='number'] {
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    width: 52px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 5px;
+}

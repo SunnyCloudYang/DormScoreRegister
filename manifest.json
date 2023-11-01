@@ -1,0 +1,53 @@
+{
+    "name": "THU Dorm Score Register Helper",
+    "description": "Help when registering dorm score",
+    "version": "0.5.0",
+    "manifest_version": 3,
+
+    "author": "SunnyCloudYang",
+    "permissions": [
+        "storage",
+        "scripting"
+    ],
+    "background": {
+        "service_worker": "./assets/js/background.js"
+    },
+    "action": {
+        "default_title": "Dorm Score Register Helper",
+        "default_popup": "settings.html",
+        "default_icon": {
+            "32": "assets/img/favicon-32x32.png",
+            "48": "assets/img/android-chrome-192x192.png",
+            "128": "assets/img/android-chrome-192x192.png"
+        }
+    },
+    "icons": {
+        "16": "assets/img/favicon-16x16.png",
+        "32": "assets/img/favicon-32x32.png",
+        "48": "assets/img/favicon-32x32.png",
+        "128": "assets/img/android-chrome-192x192.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://hm.myhome.tsinghua.edu.cn/"
+            ],
+            "js": [
+                "./assets/js/login.js"
+            ],
+            "css": [
+                "./assets/css/login.css"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "http://hm.myhome.tsinghua.edu.cn/default.aspx"
+            ],
+            "js": [
+                "./assets/js/autocomplete.js"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}

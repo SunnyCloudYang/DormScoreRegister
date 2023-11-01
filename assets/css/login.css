@@ -1,0 +1,149 @@
+:root {
+    --primary-color: #bb4cdd;
+    --secondary-color: #a221cc;
+    --tertiary-color: #8203b9;
+    --radius-large: 20px;
+    --radius-medium: 10px;
+    --radius-small: 5px;
+    --radius-xsmall: 2px;
+}
+
+div#pop-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+}
+
+div.select-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: max-content;
+    z-index: 101;
+    border-radius: var(--radius-large);
+    padding: 10px;
+    background-color: rgba(255,255,255,0.86);
+    transform: translate(-50%, -50%);
+}
+
+div.select-panel > div.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px 10px;
+    padding: 0px 5px;
+    cursor: pointer;
+    color: #888;
+    font-size: 20px;
+    transition: 0.15s ease-in-out all;
+}
+
+div.select-panel > div.close:hover {
+    color: #222;
+}
+
+div.select-panel h2 {
+    margin: 10px 5px;
+}
+
+div.select-panel > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+}
+
+div.form-group {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:space-between;
+    width: 100%;
+    padding: 8px 12px;
+}
+
+div.form-group > label {
+    text-align: left;
+}
+
+div.form-group > input {
+    width: 80px;
+    height: 24px;
+    border: 1px solid;
+    border-radius: var(--radius-small);
+}
+
+div.form-group > input:focus {
+    outline-color: var(--tertiary-color);
+    border-color: var(--secondary-color);
+}
+
+div.form-group > select {
+    width: 80px;
+    height: 24px;
+    border: 1px solid;
+    border-radius: var(--radius-small);
+}
+
+div.form-group > select:focus {
+    outline-color: var(--tertiary-color);
+    border-color: var(--secondary-color);
+}
+
+div.select-panel > div.panel-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+div.select-panel > div.panel-footer > button {
+    margin: 0 5px;
+}
+
+button.btn {
+    border: none;
+    border-radius: var(--radius-large);
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.15s ease-in-out all;
+}
+
+button.btn:hover {
+    background-color: #004d9f;
+}
+
+button.btn:active {
+    background-color: #002d5f;
+}
+
+button.btn.btn-primary {
+    background-color: var(--primary-color);
+}
+
+button.btn.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+button.btn.btn-primary:active {
+    background-color: var(--tertiary-color);
+}
+
+button.btn.btn-default {
+    background-color: #888;
+}
+
+button.btn.btn-default:hover {
+    background-color: #555;
+}
+
+button.btn.btn-default:active {
+    background-color: #333;
+}
