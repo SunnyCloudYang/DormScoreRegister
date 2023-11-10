@@ -1,7 +1,7 @@
 {
     "name": "THU Dorm Score Register Helper",
     "description": "Help when registering dorm score",
-    "version": "0.5.0",
+    "version": "0.9.0",
     "manifest_version": 3,
 
     "author": "SunnyCloudYang",
@@ -30,7 +30,9 @@
     "content_scripts": [
         {
             "matches": [
-                "http://hm.myhome.tsinghua.edu.cn/"
+                "http://hm.myhome.tsinghua.edu.cn/",
+                "http://hm.myhome.tsinghua.edu.cn/AdminLogin.aspx",
+                "http://hm.myhome.tsinghua.edu.cn/Adminlogin.aspx"
             ],
             "js": [
                 "./assets/js/login.js"

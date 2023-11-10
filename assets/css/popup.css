@@ -40,16 +40,16 @@ div.quicklink a {
     margin-bottom: 0.2rem;
     padding: 0.5rem 1.2rem;
     border-radius: 18px;
-    background-color: rgb(232, 202, 245);
+    background-color: #e8caf5;
     transition: background-color 0.2s;
 }
 
 div.quicklink a:hover {
-    background-color: rgb(220, 167, 237);
+    background-color: #dca7ed;
 }
 
 div.quicklink a:active {
-    background-color: rgb(214, 124, 242);
+    background-color: #d67cf2;
 }
 
 div.switch-container {
