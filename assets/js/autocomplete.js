@@ -1,5 +1,12 @@
-let leftFrame = window.frames["leftFrame"];
-let mainFrame = window.frames["mainFrame"];
+let leftFrame;
+let mainFrame;
+
+window.onload = function () {
+    console.log("Auto complete loaded.");
+    leftFrame = window.frames["leftFrame"];
+    mainFrame = window.frames["mainFrame"];
+    beginInput();
+};
 
 function enterScoreByRoom() {
     try {
@@ -37,28 +44,22 @@ function inputFloorAndRoom() {
 }
 
 function beginInput() {
-    leftFrame.onload = function () {
-        mainFrame.onload = function () {
-            ensureCurPossition();
-            setTimeout(() => {
-                inputFloorAndRoom();
-                const beginBtn = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_btnSave");
-                console.log("Begin to input score.");
-                chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
-                    if (data.enabled && data.autoComplete) {
-                        beginBtn.addEventListener("click", function () {
-                            addBtn();
-                        });
-                    }
+    ensureCurPossition();
+    setTimeout(() => {
+        inputFloorAndRoom();
+        const beginBtn = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_btnSave");
+        console.log("Begin to input score.");
+        chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
+            if (data.enabled && data.autoComplete) {
+                beginBtn.addEventListener("click", function () {
+                    addBtn();
                 });
-                // beginBtn.click();
-            }, 1000);
-        };
-    };
+            }
+        });
+        // beginBtn.click();
+    }, 1000);
 }
 
-beginInput();
-addBtn();
 // *******************************
 const publicAdvice = {
     "PUBLIC_EARTH": "地面",
