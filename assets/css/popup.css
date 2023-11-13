@@ -76,10 +76,10 @@ input[type='checkbox'] {
     -moz-appearance: none;
     appearance: none;
     position: relative;
-    width: 40px;
-    height: 19px;
+    width: 2.5rem;
+    height: 1.2rem;
     background: #ccc;
-    border-radius: 10px;
+    border-radius: 0.6rem;
     transition: border-color 0.3s, background-color 0.3s;
 }
 
@@ -87,14 +87,14 @@ input[type='checkbox']::after {
     content: '';
     display: inline-block;
     position: relative;
-    width: .7rem;
-    height: .7rem;
+    width: .6rem;
+    height: .6rem;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0, 0, 2px, #999;
-    transition: 0.4s;
-    top: 3px;
-    left: 3.6px;
+    transition: 0.3s;
+    top: .04rem;
+    left: .3rem;
 }
 
 input[type='checkbox']:checked {
@@ -104,18 +104,8 @@ input[type='checkbox']:checked {
 input[type='checkbox']:checked::after {
     content: '';
     position: relative;
-    left: 62%;
-    top: 3px;
-}
-
-input[type='number'] {
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    position: relative;
-    width: 52px;
-    height: 20px;
-    background: #ccc;
-    border-radius: 5px;
+    width: .8rem;
+    height: .8rem;
+    left: 60%;
+    top: 0.16rem;
 }

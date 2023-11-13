@@ -3,15 +3,15 @@ let mainFrame;
 
 window.onload = function () {
     console.log("Auto complete loaded.");
-    leftFrame = window.frames["leftFrame"];
-    mainFrame = window.frames["mainFrame"];
+    leftFrame = window.frames["leftFrame"] || window.frames[1];
+    mainFrame = window.frames["mainFrame"] || window.frames[3];
     beginInput();
 };
 
 function enterScoreByRoom() {
     try {
         leftFrame.document.getElementById("GridView1_ctl03_span1").getElementsByTagName("a")[0].click();
-        mainFrame = window.frames["mainFrame"];
+        mainFrame = window.frames["mainFrame"] || window.frames[3];
     } catch (error) {
         console.log(error);
     }
