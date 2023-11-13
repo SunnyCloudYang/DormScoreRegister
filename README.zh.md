@@ -4,10 +4,18 @@
 
 ## 安装
 
-1. 在Release页面[下载最新版本](https://github.com/SunnyCloudYang/DormScoreRegister/releases)或在Code页面[下载压缩包](https://github.com/SunnyCloudYang/DormScoreRegister)，然后解压到选定文件夹。
-2. 打开 Chrome/Edge/Firefox的扩展页面（Chrome是 `chrome://extensions/` ，Edge是 `edge://extensions/`，火狐同理 ），点击 `加载解压缩的插件` 并选择你刚刚解压的文件夹（**记得在加载前打开`开发人员模式`!**）
+### Chrome/Edge
+
+1. 在Release页面[下载对应浏览器的最新版本](https://github.com/SunnyCloudYang/DormScoreRegister/releases)或在Code页面[下载压缩包](https://github.com/SunnyCloudYang/DormScoreRegister)（仅限Chrome内核的浏览器），然后解压到任意一个文件夹。
+2. 打开 Chrome/Edge的扩展页面（Chrome是 `chrome://extensions/` ，Edge是 `edge://extensions/`），点击 `加载解压缩的插件` 并选择你刚刚解压的文件夹（**记得在加载前打开`开发人员模式`!**），完成安装。
    ![load unpacked](screenshot/loadunpacked.png)
    ![developer mode](screenshot/developermode.png)
+
+### Firefox
+
+1. 在Release页面[下载对应浏览器的最新版本](https://github.com/SunnyCloudYang/DormScoreRegister/releases)（后缀为.xpi的那个），保存到任意文件夹。
+2. 打开FireFox的扩展页面（`about:addons`），点击齿轮图标，选择 `从文件安装附加组件`，选择刚刚下载的文件，完成安装。（同样需要打开`开发者模式`）
+   ![load unpacked](screenshot/loadfile-firefox.png)
 
 ## 获取更新
 
@@ -48,9 +56,18 @@
 
 ## 更新日志
 
+### v1.1.4
+
+#### 功能
+
+- 支持Firefox
+
 ### v1.0.0
 
 - 第一版发布
+
+#### 功能
+
 - 自动登录
 - 自动填写评分
 - 自动生成建议
