@@ -1,8 +1,8 @@
 {
     "name": "THU Dorm Score Register Helper",
     "description": "Help when registering dorm score",
-    "version": "1.0.0",
-    "manifest_version": 3,
+    "version": "1.1.0",
+    "manifest_version": 2,
 
     "author": "SunnyCloudYang",
     "permissions": [
@@ -10,22 +10,22 @@
         "scripting"
     ],
     "background": {
-        "service_worker": "./assets/js/background.js"
+        "scripts": ["./assets/js/background.js"]
     },
-    "action": {
+    "browser_action": {
         "default_title": "Dorm Score Register Helper",
         "default_popup": "settings.html",
         "default_icon": {
             "32": "assets/img/favicon-32x32.png",
-            "48": "assets/img/android-chrome-192x192.png",
-            "128": "assets/img/android-chrome-192x192.png"
+            "48": "assets/img/48x48.png",
+            "128": "assets/img/128x128.png"
         }
     },
     "icons": {
         "16": "assets/img/favicon-16x16.png",
         "32": "assets/img/favicon-32x32.png",
-        "48": "assets/img/favicon-32x32.png",
-        "128": "assets/img/android-chrome-192x192.png"
+        "48": "assets/img/48x48.png",
+        "128": "assets/img/128x128.png"
     },
     "content_scripts": [
         {
@@ -51,5 +51,11 @@
             ],
             "run_at": "document_end"
         }
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "thu-dorm-score-register-helper@SunnyCloudYang",
+            "update_url": "https://raw.githubusercontent.com/SunnyCloudYang/DormScoreRegister/firefox/updates.json"
+        }
+    }
 }
