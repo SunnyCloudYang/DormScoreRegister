@@ -4,8 +4,15 @@ A plugin to auto login and complete dormitory sanitation score entry
 
 ## Installation
 
+### Chrome/Edge
+
 1. [Download the latest release](https://github.com/SunnyCloudYang/DormScoreRegister/releases) or [download zip](https://github.com/SunnyCloudYang/DormScoreRegister) from master branch, then unzip it to a selected folder.
 2. Open Chrome/Edge, and go to `chrome://extensions/` (or `edge://extensions/` if you are using Edge), click `Load unpacked` and select the folder you just unzipped.( **remember to turn on `Developer mode` before loading it!**)
+
+### Firefox
+
+1. [Download the latest release](https://github.com/SunnyCloudYang/DormScoreRegister/releases) with .xpi suffix, save it to a selected folder.
+2. Open Firefox, go to `about:addons`, click the gear icon, select `Install Add-on From File`, select the file you just downloaded, and complete the installation. (You also need to turn on `Developer mode` before loading it)
 
 ## Update
 
@@ -47,9 +54,18 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
-### 1.0.0
+### v1.1.4
+
+#### Features
+
+- [x] Support Firefox
+
+### v1.0.0
 
 - First release
-- Auto login
-- Auto fill in the score
-- Auto generate advice
+
+#### Features
+
+- [x] Auto login
+- [x] Auto fill in the score
+- [x] Auto generate advice
