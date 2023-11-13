@@ -6,8 +6,8 @@
 
 1. 在Release页面[下载最新版本](https://github.com/SunnyCloudYang/DormScoreRegister/releases)或在Code页面[下载压缩包](https://github.com/SunnyCloudYang/DormScoreRegister)，然后解压到选定文件夹。
 2. 打开 Chrome/Edge/Firefox的扩展页面（Chrome是 `chrome://extensions/` ，Edge是 `edge://extensions/`，火狐同理 ），点击 `加载解压缩的插件` 并选择你刚刚解压的文件夹（**记得在加载前打开`开发人员模式`!**）
-   ![load unpacked](loadunpacked.png)
-   ![developer mode](developermode.png)
+   ![load unpacked](screenshot/loadunpacked.png)
+   ![developer mode](screenshot/developermode.png)
 
 ## 获取更新
 
