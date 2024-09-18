@@ -103,7 +103,7 @@ function inputInfo(region, building, floor) {
     const username = document.getElementById("Login2Ctrl1_txtAccount");
     const password = document.getElementById("Login2Ctrl1_txtPwd");
     username.value = region + building + floor;
-    password.value = username.value;
+    password.value = username.value + "XSSQ";
 
     login();
 }
