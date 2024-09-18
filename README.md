@@ -54,6 +54,10 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v2.0.0
+
+- Update password pattern
+
 ### v1.1.4
 
 #### Features
