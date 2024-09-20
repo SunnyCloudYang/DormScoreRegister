@@ -81,7 +81,7 @@ const personalAdvice = {
     "PERSON_BOOKCASE": "书架",
     "PERSON_DESK": "书桌",
 }
-const defaultAdvice = "很棒坚持！";
+const defaultAdvice = "很棒坚持";
 
 function addBtn() {
     const btn = leftFrame.document.createElement("button");
@@ -191,22 +191,21 @@ function updateAdvice(center, public, personal) {
     }
     
     let allA = true;
-    let hasC = false;
+    // let hasC = false;
     for (let key in scores) {
         const advice = personalAdvice[key] || publicAdvice[key] || centerAdvice[key];
-        if (scores[key] === "B") {
+        if (scores[key] !== "A") {
             allA = false;
             adviceBox.value += `${advice}`;
-        } else if (scores[key] === "C" || scores[key] === "D") {
-            adviceBox.value += hasC ? `、${advice}` : adviceBox.value == "" ? `请清理${advice}` : `，请清理${advice}`;
-            allA = false;
-            hasC = true;
         }
+        // else if (scores[key] === "C" || scores[key] === "D") {
+        //     adviceBox.value += hasC ? `、${advice}` : adviceBox.value == "" ? `请清理${advice}` : `，请清理${advice}`;
+        //     allA = false;
+        //     hasC = true;
+        // }
     }
     if (allA) {
         adviceBox.value = defaultAdvice;
-    } else {
-        adviceBox.value += "。";
     }
 }
 
