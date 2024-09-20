@@ -58,6 +58,13 @@ function popWindow() {
                         <option>8</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="pwd-pattern">密码后缀</label>
+                    <select class="form-control" id="pwd-pattern">
+                        <option>XSSQ</option>
+                        <option>无</option>
+                    </select>
+                </div>
             </div>
             <div class="panel-footer">
                 <button type="submit" class="btn btn-primary" id="input-btn">开始录入</button>
@@ -85,25 +92,27 @@ function popWindow() {
         const region = document.getElementById("region").value;
         const building = document.getElementById("building").value;
         const floor = document.getElementById("floor").value;
-
+        const pwdSuffix = document.getElementById("pwd-pattern").value === "无" ? "" : document.getElementById("pwd-pattern").value;
+        
         if (building === "") {
             alert("请输入楼栋");
             return;
         }
 
-        inputInfo(region, building, floor);
+        inputInfo(region, building, floor, pwdSuffix);
     });
 }
 
-function inputInfo(region, building, floor) {
+function inputInfo(region, building, floor, pwdSuffix) {
     region = region === "南区" ? "nq" : "zj";
     building = building < 10 ? "0" + building : building;
     floor = floor < 10 ? "0" + floor : floor;
 
+
     const username = document.getElementById("Login2Ctrl1_txtAccount");
     const password = document.getElementById("Login2Ctrl1_txtPwd");
     username.value = region + building + floor;
-    password.value = username.value;
+    password.value = username.value + pwdSuffix;
 
     login();
 }

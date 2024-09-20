@@ -1,7 +1,7 @@
 {
     "name": "THU Dorm Score Register Helper",
-    "description": "Help when registering dorm score",
-    "version": "1.0.0",
+    "description": "Help THU students registering dorm score",
+    "version": "2.1.0",
     "manifest_version": 3,
 
     "author": "SunnyCloudYang",

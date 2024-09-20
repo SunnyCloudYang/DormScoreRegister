@@ -30,7 +30,7 @@ Just delete the extension and reinstall the latest version.
 
 1. Open the extension and **turn on the switch** in the popup to enable the extension. (The extension will remember your choice so that you just have to turn it on once)
 2. **Click `Begin Entry` button** to go to the login page.
-3. **Select the region, building and floor** you want to enter the score, and you will automatically enter the score entry page.
+3. **Select the region, building, floor and password pattern** you want to enter the score, and you will automatically enter the score entry page.
 4. Extension will automatically fill the floor and room number, so you can simply **click the `Begin Entry` button** to start entering the score.
 5. When a new room page is loaded, **click the `Auto Complete` button** to fill in the default score and generate default advice.
 6. By **right-clicking** the score select box, you'll change the default score to **"B"**, if you press **`Ctrl`** key simultaneously, the score will be changed to **"C"**, press **`Shift`** to change it to **"D"**.
@@ -53,6 +53,20 @@ Just delete the extension and reinstall the latest version.
 If you have any questions or suggestions, please feel free to [contact me](mailto:sunnycloudyang@outlook.com) or open an [issue](https://github.com/SunnyCloudYang/DormScoreRegister/issues).
 
 ## Change Log
+
+### v2.1.0
+
+#### Features
+
+- Support to choose password suffix
+
+#### Fix
+
+- Fix the format of advice generation
+
+### v2.0.0
+
+- Update password pattern
 
 ### v1.1.4
 
