@@ -8,12 +8,14 @@ A plugin to auto login and complete dormitory sanitation score entry
 
 ### Chrome/Edge
 
-#### Install from zip (Not recommended)
+There are two ways to install the extension:
+
+#### 1. Install from zip (Not recommended)
 
 1. [Download the `DormScoreRegister-Chromium.zip` file from the latest release](https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest), unzip it to a selected folder.
 2. Open Chrome/Edge, and go to `chrome://extensions/` (or `edge://extensions/` in the case of Edge), click `Load unpacked` and select the folder you just unzipped.( **remember to turn on `Developer mode` before loading it!**)
 
-#### Install with Git (Recommended)
+#### 2. Install with Git (Recommended)
 
 1. `git clone https://github.com/SunnyCloudYang/DormScoreRegister.git`
 2. Open Chrome/Edge, and go to `chrome://extensions/` (or `edge://extensions/` in the case of Edge), click `Load unpacked` and select the folder you just unzipped.( **remember to turn on `Developer mode` before loading it!**)
@@ -36,7 +38,7 @@ A plugin to auto login and complete dormitory sanitation score entry
 1. Open the extension and **turn on the switch** in the popup to enable the extension. (The extension will remember your choice so that you just have to turn it on once)
 2. **Click `Begin Entry` button** to go to the login page.
 3. **Select the region, building, floor and password pattern** you want to enter the score, and you will automatically enter the score entry page.
-4. Extension will automatically fill the floor and room number, so you can simply **click the `Begin Entry` button** to start entering the score.
+4. Wait for the extension to automatically fill in the floor and the start room number, and then **click the `Begin Entry` button** to start entering the score.
 5. When a new room page is loaded, **click the `Auto Complete` button** to fill in the default score and generate default advice.
 6. By **right-clicking** the score select box, you'll change the default score to **"B"**, if you press **`Ctrl`** key simultaneously, the score will be changed to **"C"**, press **`Shift`** to change it to **"D"**.
 7. No matter how you choose the score, the advice will be generated automatically with no extra operation.
