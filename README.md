@@ -2,21 +2,26 @@
 
 A plugin to auto login and complete dormitory sanitation score entry
 
+[中文README](README.zh.md)
+
 ## Installation
 
 ### Chrome/Edge
 
-1. [Download the latest release](https://github.com/SunnyCloudYang/DormScoreRegister/releases) or [download zip](https://github.com/SunnyCloudYang/DormScoreRegister) from master branch, then unzip it to a selected folder.
-2. Open Chrome/Edge, and go to `chrome://extensions/` (or `edge://extensions/` if you are using Edge), click `Load unpacked` and select the folder you just unzipped.( **remember to turn on `Developer mode` before loading it!**)
+#### Install from zip (Not recommended)
+
+1. [Download the `DormScoreRegister-Chromium.zip` file from the latest release](https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest), unzip it to a selected folder.
+2. Open Chrome/Edge, and go to `chrome://extensions/` (or `edge://extensions/` in the case of Edge), click `Load unpacked` and select the folder you just unzipped.( **remember to turn on `Developer mode` before loading it!**)
+
+#### Install with Git (Recommended)
+
+1. `git clone https://github.com/SunnyCloudYang/DormScoreRegister.git`
+2. Open Chrome/Edge, and go to `chrome://extensions/` (or `edge://extensions/` in the case of Edge), click `Load unpacked` and select the folder you just unzipped.( **remember to turn on `Developer mode` before loading it!**)
 
 ### Firefox
 
-1. [Download the latest release](https://github.com/SunnyCloudYang/DormScoreRegister/releases) with .xpi suffix, save it to a selected folder.
+1. [Download the `DormScoreRegister-Firefox.xpi` file from the latest release](https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest), save it to a selected folder.
 2. Open Firefox, go to `about:addons`, click the gear icon, select `Install Add-on From File`, select the file you just downloaded, and complete the installation. (You also need to turn on `Developer mode` before loading it)
-
-## Update
-
-Just delete the extension and reinstall the latest version.
 
 ## Features
 
@@ -37,6 +42,12 @@ Just delete the extension and reinstall the latest version.
 7. No matter how you choose the score, the advice will be generated automatically with no extra operation.
 8. **Click the `Save` button** to save and move to the next room. (`Next Room` button will be disabled as the prior version, though I have no idea why)
 
+## Update
+
+1. If you installed the extension with Git, just `git pull` to update.
+2. If you installed the extension with zip file, delete the old extension and reinstall the latest version.
+3. If you installed the extension in Firefox, click the `Update` button on the extension management page, and complete the update. (Or just delete the extension and reinstall the latest version)
+
 ## Known Issues
 
 - [ ] Sometimes the extension will be not able to choose "Entry Score by Room", so you have to refresh the page to make it work.
@@ -54,19 +65,25 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v2.1.1
+
+#### Fix
+
+- [x] Fix missing buildings
+
 ### v2.1.0
 
 #### Features
 
-- Support to choose password suffix
+- [x] Support to choose password suffix
 
 #### Fix
 
-- Fix the format of advice generation
+- [x] Fix the format of advice generation
 
 ### v2.0.0
 
-- Update password pattern
+- [x] Update password pattern
 
 ### v1.1.4
 
