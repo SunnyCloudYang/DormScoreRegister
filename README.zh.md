@@ -10,7 +10,7 @@
 
 #### 1. 下载压缩包安装（需要手动更新）
 
-1. 在Release页面[下载`DormScoreRegister-Chromium.zip`](https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest)，然后解压到任意一个文件夹。
+1. 在[Release页面](https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest)下载`DormScoreRegister-Chromium.zip`，然后解压到任意一个文件夹。
 2. 打开 Chrome/Edge的扩展页面（Chrome是 `chrome://extensions/` ，Edge是 `edge://extensions/`），打开 `开发者模式` ，点击 `加载解压缩的插件` 并选择你刚刚解压的文件夹，完成安装。
    
    ![load unpacked](screenshot/loadunpacked.png)
@@ -26,7 +26,7 @@
 
 ### Firefox
 
-1. 在Release页面[下载`DormScoreRegister-Firefox.xpi`](https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest)，保存到任意文件夹。
+1. 在[Release页面](https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest)下载`DormScoreRegister-Firefox.xpi`，保存到任意文件夹。
 2. 打开FireFox的扩展页面（`about:addons`），打开 `开发者模式` ，点击齿轮图标，选择 `从文件安装附加组件`，选择刚刚下载的文件，完成安装。
    
    ![load unpacked](screenshot/loadfile-firefox.png)
