@@ -1,4 +1,5 @@
 function popWindow() {
+    let [region, building, floor, pwdSuffix] = parseParamFromUrl();
     const div = document.createElement("div");
 
     div.setAttribute("id", "pop-window");
@@ -8,7 +9,7 @@ function popWindow() {
                 <span class="glyphicon glyphicon-remove" id="close-btn">×</span>
             </div>
             <div class="panel-header">
-                <h2>录入楼层</h2>
+                <h2>成绩管理</h2>
             </div>
             <div class="panel-body">
                 <div class="form-group">
@@ -82,8 +83,8 @@ function popWindow() {
                 </div>
             </div>
             <div class="panel-footer">
-                <button type="submit" class="btn btn-primary" id="input-btn">开始录入</button>
-                <button type="reset" class="btn btn-default" id="reset-btn">重置</button>
+                <button type="submit" class="btn btn-primary" id="input-btn">去录入</button>
+                <button type="submit" class="btn btn-secondary" id="export-btn">去导出</button>
             </div>
         </div>
     `;
@@ -95,20 +96,42 @@ function popWindow() {
         document.body.removeChild(div);
     });
 
-    const resetBtn = document.getElementById("reset-btn");
-    resetBtn.addEventListener("click", () => {
-        document.getElementById("region").value = "紫荆";
-        document.getElementById("building").value = "1";
-        document.getElementById("floor").value = "1";
+    const exportBtn = document.getElementById("export-btn");
+    exportBtn.addEventListener("click", () => {
+        sessionStorage.setItem("target", "export");
+        // open a new window with every floor under the same building
+        const region = document.getElementById("region").value;
+        const building = document.getElementById("building").value;
+        const pwdSuffix = document.getElementById("pwd-pattern").value === "无" ? "" : document.getElementById("pwd-pattern").value;
+        let urls = [];
+        for (let i = 1; i <= 8; i++) {
+            const url = `http://hm.myhome.tsinghua.edu.cn/?region=${region === "南区" ? "nq" : "zj"}&building=${building}&floor=${i}&pwdSuffix=${pwdSuffix}`;
+            urls.push(url);
+        }
+        let newWindow = window.open(urls[0], "_blank");
+        console.log("new window opened.");
+        urls.shift();
+        let interval = setInterval(() => {
+            if (newWindow.closed) {
+                newWindow = window.open(urls[0], "_blank");
+                console.log("new window opened.");
+                urls.shift();
+            }
+            if (urls.length === 0) {
+                clearInterval(interval);
+            }
+        }, 500);
+        // inputInfo(region, building, 1, pwdSuffix);
     });
 
     const inputBtn = document.getElementById("input-btn");
     inputBtn.addEventListener("click", () => {
+        sessionStorage.setItem("target", "input");
         const region = document.getElementById("region").value;
         const building = document.getElementById("building").value;
         const floor = document.getElementById("floor").value;
         const pwdSuffix = document.getElementById("pwd-pattern").value === "无" ? "" : document.getElementById("pwd-pattern").value;
-        
+
         if (building === "") {
             alert("请输入楼栋");
             return;
@@ -116,10 +139,52 @@ function popWindow() {
 
         inputInfo(region, building, floor, pwdSuffix);
     });
+
+    if (building !== 0) {
+        sessionStorage.setItem("target", "export");
+        console.log(region, building, floor, pwdSuffix);
+        document.getElementById("region").value = region;
+        document.getElementById("building").value = building;
+        document.getElementById("floor").value = floor;
+        document.getElementById("pwd-pattern").value = pwdSuffix === "" ? "无" : "XSSQ";
+        if (sessionStorage.getItem("tried") !== "true") {
+            inputInfo(region, building, floor, pwdSuffix);
+            sessionStorage.setItem("tried", "true");
+        }
+    }
+}
+
+function parseParamFromUrl() {
+    const url = window.location.href;
+    let region = "紫荆";
+    let building = 0;
+    let floor = 0;
+    let pwdSuffix = "";
+    try {
+        const params = url.split("?")[1].split("&");
+        for (let i = 0; i < params.length; i++) {
+            const [key, value] = params[i].split("=");
+            if (key === "building") {
+                building = parseInt(value);
+            } else if (key === "floor") {
+                floor = parseInt(value);
+            } else if (key === "pwdSuffix") {
+                pwdSuffix = value;
+            } else if (key === "region") {
+                region = value === "nq" ? "南区" : "紫荆";
+            }
+        }
+    }
+    catch (e) {
+        console.log("No params in url.");
+    }
+    finally {
+        return [region, building, floor, pwdSuffix];
+    }
 }
 
 function inputInfo(region, building, floor, pwdSuffix) {
-    region = region === "南区" ? "nq" : "zj";
+    region = region === "南区" || region === "nq" ? "nq" : "zj";
     building = building < 10 ? "0" + building : building;
     floor = floor < 10 ? "0" + floor : floor;
 
