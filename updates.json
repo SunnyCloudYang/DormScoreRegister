@@ -3,8 +3,8 @@
         "{thu-dorm-score-register-helper@SunnyCloudYang}": {
             "updates": [
                 {
-                    "version": "2.1.1",
-                    "update_link": "https://github.com/SunnyCloudYang/DormScoreRegister/releases/download/v2.1.1/ScoreRegister-Firefox.xpi"
+                    "version": "3.0.0",
+                    "update_link": "https://github.com/SunnyCloudYang/DormScoreRegister/releases/download/v3.0.0/ScoreRegister-Firefox.xpi"
                 }
             ]
         }

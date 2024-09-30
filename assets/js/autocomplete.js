@@ -1,16 +1,22 @@
 let leftFrame;
+let topFrame;
 let mainFrame;
+let target;
+let title;
 
 window.onload = function () {
     console.log("Auto complete loaded.");
     leftFrame = window.frames["leftFrame"] || window.frames[1];
+    topFrame = window.frames["topFrame"] || window.frames[0];
     mainFrame = window.frames["mainFrame"] || window.frames[3];
-    beginInput();
+    target = sessionStorage.getItem("target");
+    title = target === "export" ? "学生卫生成绩查询" : "按房间录入卫生成绩";
+    target === "export" ? exportExcel() : beginInput();
 };
 
-function enterScoreByRoom() {
+function enterPage(pageId) {
     try {
-        leftFrame.document.getElementById("GridView1_ctl03_span1").getElementsByTagName("a")[0].click();
+        leftFrame.document.getElementById(pageId).getElementsByTagName("a")[0].click();
         mainFrame = window.frames["mainFrame"] || window.frames[3];
     } catch (error) {
         console.log(error);
@@ -21,7 +27,7 @@ function checkCurPossition() {
     try {
         const curPossition = mainFrame.document.getElementById("form1").getElementsByTagName("table")[0].getElementsByTagName("tbody")[0].getElementsByTagName("tr")[0].getElementsByTagName("td")[0].innerText;
 
-        return curPossition.includes("按房间录入卫生成绩");
+        return curPossition.includes(title);
 
     } catch (error) {
         return false;
@@ -30,8 +36,8 @@ function checkCurPossition() {
 
 function ensureCurPossition() {
     if (!checkCurPossition()) {
-        console.log("Not in the right possition, try to enter score by room.");
-        enterScoreByRoom();
+        console.log("Not in the right possition, try to enter correct page.");
+        enterPage(target === "export" ? "GridView1_ctl06_span1" : "GridView1_ctl03_span1");
     }
 }
 
@@ -41,6 +47,32 @@ function inputFloorAndRoom() {
     
     floor.selectedIndex = 1;
     room.value = floor.value + "01";
+}
+
+function exportExcel() {
+    ensureCurPossition();
+    let intervId = setInterval(() => {
+        if (isFrameLoaded()) {
+            console.log("Frame loaded.");
+            const exportBtn = mainFrame.document.getElementById("WeekScoreListCtrl1_btnExcel");
+            exportBtn.click();
+            console.log("Export excel.");
+            setTimeout(() => {
+                window.close();
+            }, 3000);
+            clearInterval(intervId);
+        }
+    }, 500);
+}
+
+function isFrameLoaded() {
+    let isLoaded = false;
+    try {
+        isLoaded = mainFrame.document.getElementById("form1").getElementsByTagName("table")[0].getElementsByTagName("tbody")[0].getElementsByTagName("tr")[0].getElementsByTagName("td")[0].innerText.includes(title);
+    } catch (error) {
+        isLoaded = false;
+    }
+    return isLoaded;
 }
 
 function beginInput() {
@@ -198,11 +230,6 @@ function updateAdvice(center, public, personal) {
             allA = false;
             adviceBox.value += `${advice}`;
         }
-        // else if (scores[key] === "C" || scores[key] === "D") {
-        //     adviceBox.value += hasC ? `、${advice}` : adviceBox.value == "" ? `请清理${advice}` : `，请清理${advice}`;
-        //     allA = false;
-        //     hasC = true;
-        // }
     }
     if (allA) {
         adviceBox.value = defaultAdvice;
