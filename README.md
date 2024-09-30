@@ -35,14 +35,24 @@ There are two ways to install the extension:
 
 ## Usage
 
+### Score Entry (Floor Leader)
+
 1. Open the extension and **turn on the switch** in the popup to enable the extension. (The extension will remember your choice so that you just have to turn it on once)
-2. **Click `Begin Entry` button** to go to the login page.
+2. **Click `Enter System` button** to go to the login page.
 3. **Select the region, building, floor and password pattern** you want to enter the score, and you will automatically enter the score entry page.
 4. Wait for the extension to automatically fill in the floor and the start room number, and then **click the `Begin Entry` button** to start entering the score.
 5. When a new room page is loaded, **click the `Auto Complete` button** to fill in the default score and generate default advice.
 6. By **right-clicking** the score select box, you'll change the default score to **"B"**, if you press **`Ctrl`** key simultaneously, the score will be changed to **"C"**, press **`Shift`** to change it to **"D"**.
 7. No matter how you choose the score, the advice will be generated automatically with no extra operation.
 8. **Click the `Save` button** to save and move to the next room. (`Next Room` button will be disabled as the prior version, though I have no idea why)
+
+### Score Export (Building Leader)
+
+1. Open the extension and **turn on the switch** in the popup to enable the extension. (The extension will remember your choice so that you just have to turn it on once)
+2. **Click `Enter System` button** to go to the login page.
+3. Select the **region** and **building** you want to export, click the `Go Export` button, wait for the browser to automatically export and download the whole building's score.
+
+**Note**: The extension will automatically login and export the score, so you don't have to do anything else but wait.
 
 ## Update
 
@@ -66,6 +76,13 @@ There are two ways to install the extension:
 If you have any questions or suggestions, please feel free to [contact me](mailto:sunnycloudyang@outlook.com) or open an [issue](https://github.com/SunnyCloudYang/DormScoreRegister/issues).
 
 ## Change Log
+
+### v3.0.0
+
+#### Features
+
+- [x] Support exporting all floors' scores in the building
+- [x] Support checking updates
 
 ### v2.1.1
 
