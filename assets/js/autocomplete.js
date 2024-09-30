@@ -6,9 +6,9 @@ let title;
 
 window.onload = function () {
     console.log("Auto complete loaded.");
-    leftFrame = window.frames["leftFrame"];
-    topFrame = window.frames["topFrame"];
-    mainFrame = window.frames["mainFrame"];
+    leftFrame = window.frames["leftFrame"] || window.frames[1];
+    topFrame = window.frames["topFrame"] || window.frames[0];
+    mainFrame = window.frames["mainFrame"] || window.frames[3];
     target = sessionStorage.getItem("target");
     title = target === "export" ? "学生卫生成绩查询" : "按房间录入卫生成绩";
     target === "export" ? exportExcel() : beginInput();
@@ -17,7 +17,7 @@ window.onload = function () {
 function enterPage(pageId) {
     try {
         leftFrame.document.getElementById(pageId).getElementsByTagName("a")[0].click();
-        mainFrame = window.frames["mainFrame"];
+        mainFrame = window.frames["mainFrame"] || window.frames[3];
     } catch (error) {
         console.log(error);
     }
@@ -230,11 +230,6 @@ function updateAdvice(center, public, personal) {
             allA = false;
             adviceBox.value += `${advice}`;
         }
-        // else if (scores[key] === "C" || scores[key] === "D") {
-        //     adviceBox.value += hasC ? `、${advice}` : adviceBox.value == "" ? `请清理${advice}` : `，请清理${advice}`;
-        //     allA = false;
-        //     hasC = true;
-        // }
     }
     if (allA) {
         adviceBox.value = defaultAdvice;
