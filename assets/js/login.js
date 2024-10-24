@@ -105,7 +105,7 @@ function popWindow() {
         const pwdSuffix = document.getElementById("pwd-pattern").value === "无" ? "" : document.getElementById("pwd-pattern").value;
         let urls = [];
         for (let i = 1; i <= 8; i++) {
-            const url = `http://hm.myhome.tsinghua.edu.cn/?region=${region === "南区" ? "nq" : "zj"}&building=${building}&floor=${i}&pwdSuffix=${pwdSuffix}`;
+            const url = `https://hm.myhome.tsinghua.edu.cn/?region=${region === "南区" ? "nq" : "zj"}&building=${building}&floor=${i}&pwdSuffix=${pwdSuffix}`;
             urls.push(url);
         }
         let newWindow = window.open(urls[0], "_blank");

@@ -31,17 +31,21 @@ function updateStatus() {
 function checkUpdate() {
     const manifestData = chrome.runtime.getManifest();
     const currentVersion = manifestData.version;
-    fetch('https://api.github.com/repos/sunnycloudyang/DormScoreRegister/releases/latest')
-        .then((response) => response.json())
-        .then((data) => {
-            const latestVersion = data.tag_name.replace('v', '');
-            if (latestVersion !== currentVersion) {
-                const updateLink = document.getElementById('update');
-                updateLink.style.display = 'block';
-                updateLink.href = data.html_url;
-                updateLink.addEventListener('click', () => {
-                    chrome.tabs.create({ url: data.html_url });
-                });
-            }
-        });
+    try {
+        fetch('https://api.github.com/repos/sunnycloudyang/DormScoreRegister/releases/latest')
+            .then((response) => response.json())
+            .then((data) => {
+                const latestVersion = data.tag_name.replace('v', '');
+                if (latestVersion !== currentVersion) {
+                    const updateLink = document.getElementById('update');
+                    updateLink.style.display = 'block';
+                    updateLink.href = data.html_url;
+                    updateLink.addEventListener('click', () => {
+                        chrome.tabs.create({ url: data.html_url });
+                    });
+                }
+            });
+    } catch (error) {
+        console.error(error);
+    }
 }
