@@ -6,7 +6,7 @@ A plugin to auto login and complete dormitory sanitation score entry
 
 ## Installation
 
-### Chrome/Edge
+### Chrome/Edge/Others
 
 There are two ways to install the extension:
 
@@ -24,6 +24,10 @@ There are two ways to install the extension:
 
 1. [Download the `DormScoreRegister-Firefox.xpi` file from the latest release](https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest), save it to a selected folder.
 2. Open Firefox, go to `about:addons`, click the gear icon, select `Install Add-on From File`, select the file you just downloaded, and complete the installation. (You also need to turn on `Developer mode` before loading it)
+
+### Safari
+
+Not supported yet...
 
 ## Features
 
@@ -76,6 +80,12 @@ There are two ways to install the extension:
 If you have any questions or suggestions, please feel free to [contact me](mailto:sunnycloudyang@outlook.com) or open an [issue](https://github.com/SunnyCloudYang/DormScoreRegister/issues).
 
 ## Change Log
+
+### v3.1.0
+
+#### Fix
+
+- [x] Adapt to https
 
 ### v3.0.0
 
