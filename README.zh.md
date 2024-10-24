@@ -31,6 +31,10 @@
    
    ![load unpacked](screenshot/loadfile-firefox.png)
 
+### Safari
+
+暂不支持，也尚无计划。
+
 ## 功能
 
 - [x] 自动登录到选中楼层的等级录入页面
