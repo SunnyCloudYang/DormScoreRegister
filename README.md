@@ -83,7 +83,7 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ### v3.2.2
 
-#### Feature
+#### Features
 
 - [x] Support auto completion in delayed score entry
 - [x] Add pop-up hint before exit
