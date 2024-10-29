@@ -1,7 +1,7 @@
 {
     "name": "THU Dorm Score Helper",
     "description": "Help manage THU students' dorm score",
-    "version": "3.1.0",
+    "version": "3.2.2",
     "manifest_version": 2,
 
     "author": "SunnyCloudYang",
@@ -34,7 +34,11 @@
                 "https://hm.myhome.tsinghua.edu.cn/",
                 "https://hm.myhome.tsinghua.edu.cn/?*",
                 "https://hm.myhome.tsinghua.edu.cn/AdminLogin.aspx",
-                "https://hm.myhome.tsinghua.edu.cn/Adminlogin.aspx*"
+                "https://hm.myhome.tsinghua.edu.cn/Adminlogin.aspx*",
+                "https://samis.myhome.tsinghua.edu.cn/",
+                "https://samis.myhome.tsinghua.edu.cn/?*",
+                "https://samis.myhome.tsinghua.edu.cn/AdminLogin.aspx",
+                "https://samis.myhome.tsinghua.edu.cn/Adminlogin.aspx*"
             ],
             "js": [
                 "./assets/js/login.js"
@@ -46,7 +50,8 @@
         },
         {
             "matches": [
-                "https://hm.myhome.tsinghua.edu.cn/default.aspx"
+                "https://hm.myhome.tsinghua.edu.cn/default.aspx",
+                "https://samis.myhome.tsinghua.edu.cn/default.aspx"
             ],
             "js": [
                 "./assets/js/autocomplete.js"

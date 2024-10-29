@@ -6,18 +6,49 @@ let title;
 
 window.onload = function () {
     console.log("Auto complete loaded.");
-    leftFrame = window.frames["leftFrame"] || window.frames[1];
-    topFrame = window.frames["topFrame"] || window.frames[0];
-    mainFrame = window.frames["mainFrame"] || window.frames[3];
+    updateFrames();
     target = sessionStorage.getItem("target");
     title = target === "export" ? "学生卫生成绩查询" : "按房间录入卫生成绩";
     target === "export" ? exportExcel() : beginInput();
 };
 
+
+window.addEventListener("beforeunload", (event) => {
+    event.preventDefault();
+});
+
+function updateFrames() {
+    if (!window.location.href.includes("samis")) {
+        leftFrame = window.frames["leftFrame"] || window.frames[1];
+        topFrame = window.frames["topFrame"] || window.frames[0];
+        mainFrame = window.frames["mainFrame"] || window.frames[3];
+    } else {
+        leftFrame = window.frames[0][1];
+        topFrame = window.frames[0][0];
+        mainFrame = window.frames[0][3];
+    }
+    console.debug("Frames updated.");
+}
+
 function enterPage(pageId) {
     try {
-        leftFrame.document.getElementById(pageId).getElementsByTagName("a")[0].click();
-        mainFrame = window.frames["mainFrame"] || window.frames[3];
+        if (window.location.href.includes("samis")) {
+            // try {
+            //     topFrame.document.getElementById("LoginCtrl1_LinkButton2").onclick = topFrame.document.getElementById("LoginCtrl1_LinkButton2").href;
+            //     topFrame.document.getElementById("LoginCtrl1_LinkButton2").href = "";
+            //     topFrame.document.getElementById("LoginCtrl1_LinkButton2").click();
+            //     console.log("Enter page.");
+            // } catch (error) {
+            //     console.log(error);
+            // }
+            // setTimeout(() => {
+            //     leftFrame.document.getElementById(pageId)?.getElementsByTagName("a")[0].click();
+            //     updateFrames();
+            // }, 1000);
+            return;
+        }
+        leftFrame.document.getElementById(pageId)?.getElementsByTagName("a")[0].click();
+        updateFrames();
     } catch (error) {
         console.log(error);
     }
@@ -42,11 +73,15 @@ function ensureCurPossition() {
 }
 
 function inputFloorAndRoom() {
-    const floor = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_ddlFLOOR");
-    const room = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_txtROOM_ID");
-    
-    floor.selectedIndex = 1;
-    room.value = floor.value + "01";
+    try {
+        const floor = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_ddlFLOOR");
+        const room = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_txtROOM_ID");
+        
+        floor.selectedIndex = 1;
+        room.value = floor.value + "01";
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function exportExcel() {
@@ -75,16 +110,33 @@ function isFrameLoaded() {
     return isLoaded;
 }
 
+function checkAndAddBtn() {
+    if (leftFrame.document.getElementsByTagName("th")[0].innerText.trim()) {
+        leftFrame.document.getElementById("autoCompleteBtn") ? null : addBtn();
+    }
+}
+
 function beginInput() {
     ensureCurPossition();
     setTimeout(() => {
+        if (window.location.href.includes("samis")) {
+            chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
+                if (data.enabled && data.autoComplete) {
+                    setInterval(() => {
+                        updateFrames();
+                        checkAndAddBtn();
+                    }, 1000);
+                }
+            });
+            return;
+        }
         inputFloorAndRoom();
         const beginBtn = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_btnSave");
         console.log("Begin to input score.");
         chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
             if (data.enabled && data.autoComplete) {
                 beginBtn.addEventListener("click", function () {
-                    addBtn();
+                    checkAndAddBtn();
                 });
             }
         });
@@ -126,9 +178,13 @@ function addBtn() {
 }
 
 function injectScript() {
-    autoComplete();
-    listenChange();
-    hideNextBtn();
+    try {
+        autoComplete();
+        listenChange();
+        hideNextBtn();
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function hideNextBtn() {
