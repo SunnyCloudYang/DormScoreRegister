@@ -81,6 +81,14 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v3.2.2
+
+#### Feature
+
+- [x] Support auto completion in delayed score entry
+- [x] Add pop-up hint before exit
+- [x] Optimize stability in update fetching
+
 ### v3.1.0
 
 #### Fix
