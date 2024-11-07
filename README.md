@@ -81,6 +81,13 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v3.2.3
+
+#### Fix
+
+- [x] Fix listener lose efficacy
+- [x] Add missing building
+
 ### v3.2.2
 
 #### Features
