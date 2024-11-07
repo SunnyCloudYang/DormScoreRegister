@@ -76,7 +76,7 @@ function inputFloorAndRoom() {
     try {
         const floor = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_ddlFLOOR");
         const room = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_txtROOM_ID");
-        
+
         floor.selectedIndex = 1;
         room.value = floor.value + "01";
     } catch (error) {
@@ -130,17 +130,20 @@ function beginInput() {
             });
             return;
         }
-        inputFloorAndRoom();
-        const beginBtn = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_btnSave");
-        console.log("Begin to input score.");
         chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
             if (data.enabled && data.autoComplete) {
-                beginBtn.addEventListener("click", function () {
-                    checkAndAddBtn();
-                });
+                inputFloorAndRoom();
+                setInterval(() => {
+                    if (checkCurPossition()) {
+                        const beginBtn = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_btnSave");
+                        beginBtn.addEventListener("click", function () {
+                            checkAndAddBtn();
+                            console.log("Begin to input score.");
+                        });
+                    }
+                }, 500);
             }
         });
-        // beginBtn.click();
     }, 1000);
 }
 
@@ -277,7 +280,7 @@ function updateAdvice(center, public, personal) {
     for (let key in centerAdvice) {
         scores[key] = getScore(prefix + center + selectorSuffix + key);
     }
-    
+
     let allA = true;
     // let hasC = false;
     for (let key in scores) {
@@ -296,7 +299,7 @@ function getScore(id) {
     const scores = ["A", "B", "C", "D"];
     const score = mainFrame.document.getElementById(id).selectedIndex;
 
-    return scores[score-1];
+    return scores[score - 1];
 }
 
 function getStudentNumber() {
