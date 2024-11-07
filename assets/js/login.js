@@ -32,6 +32,7 @@ function popWindow() {
                         <option>8</option>
                         <option>9</option>
                         <option>10</option>
+                        <option id="10bl" value="10bl" style="display: none;">10北</option>
                         <option>11</option>
                         <option>12</option>
                         <option>13</option>
@@ -90,6 +91,15 @@ function popWindow() {
     `;
     div.classList.add("pop-window");
     document.body.appendChild(div);
+    const regionElement = document.getElementById("region");
+    regionElement.addEventListener("change", () => {
+        const option = document.getElementById("10bl");
+        if (regionElement.value === "南区") {
+            option.style.display = "block";
+        } else {
+            option.style.display = "none";
+        }
+    });
 
     const cancelBtn = document.getElementById("close-btn");
     cancelBtn.addEventListener("click", () => {
