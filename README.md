@@ -81,6 +81,17 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v3.3.0
+
+#### Features
+
+- [x] Support webvpn login
+- [x] Support auto completion when moving to the next room
+
+#### Fix
+
+- [x] Optimize version checking
+
 ### v3.2.3
 
 #### Fix
