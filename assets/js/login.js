@@ -115,7 +115,8 @@ function popWindow() {
         const pwdSuffix = document.getElementById("pwd-pattern").value === "无" ? "" : document.getElementById("pwd-pattern").value;
         let urls = [];
         for (let i = 1; i <= 8; i++) {
-            const url = `https://hm.myhome.tsinghua.edu.cn/?region=${region === "南区" ? "nq" : "zj"}&building=${building}&floor=${i}&pwdSuffix=${pwdSuffix}`;
+            const domain = window.location.href.includes("myhome") ? "https://hm.myhome.tsinghua.edu.cn/" : "https://webvpn.tsinghua.edu.cn/https/77726476706e69737468656265737421f8fa0f913e38675d7b469dbf915b243de8193493bb5228b45d/";
+            const url = `${domain}?region=${region === "南区" ? "nq" : "zj"}&building=${building}&floor=${i}&pwdSuffix=${pwdSuffix}`;
             urls.push(url);
         }
         let newWindow = window.open(urls[0], "_blank");

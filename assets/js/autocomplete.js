@@ -12,10 +12,11 @@ window.onload = function () {
     target === "export" ? exportExcel() : beginInput();
 };
 
-
-window.addEventListener("beforeunload", (event) => {
-    event.preventDefault();
-});
+if (target === "input") {
+    window.addEventListener("beforeunload", (event) => {
+        event.preventDefault();
+    });
+}
 
 function updateFrames() {
     if (!window.location.href.includes("samis")) {
@@ -178,6 +179,25 @@ function addBtn() {
     btn.style = "width: 96%; margin: -6px 5px; padding: 6px; background-color: #e8e5fa; color: #732090; border: #660e32 1.6px solid; border-radius: 6px; cursor: pointer;";
     leftFrame.document.body.appendChild(btn);
     console.log("Add button.");
+}
+
+function addNewRoomListener() {
+    setInterval(() => {
+        if (checkCurPossition()) {
+            const nextRoomBtn = mainFrame.document.getElementById("WeekScoreByRoomAddCtrl1_btnNextRoom");
+            if (nextRoomBtn && nextRoomBtn.style.display !== "none") {
+                injectScript();
+
+                const reminder = mainFrame.document.createElement("div");
+                reminder.innerText = "已自动填充";
+                reminder.style = "position: fixed; bottom: 12px; right: 12px; padding: 8px 12px; background-color: #732090; color: #e8e5fa; border-radius: 8px; animation: fadeOut 1s forwards;";
+                mainFrame.document.body.appendChild(reminder);
+                setTimeout(() => {
+                    mainFrame.document.body.removeChild(reminder);
+                }, 1500);
+            }
+        }
+    }, 200);
 }
 
 function injectScript() {
