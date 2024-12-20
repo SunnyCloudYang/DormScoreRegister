@@ -5,18 +5,22 @@ let target;
 let title;
 
 window.onload = function () {
-    console.log("Auto complete loaded.");
-    updateFrames();
-    target = sessionStorage.getItem("target");
-    title = target === "export" ? "学生卫生成绩查询" : "按房间录入卫生成绩";
-    target === "export" ? exportExcel() : beginInput();
+    chrome.storage.sync.get(["enabled"], (data) => {
+        if (data.enabled) {
+            console.log("Auto complete loaded.");
+            updateFrames();
+            target = sessionStorage.getItem("target");
+            title = target === "export" ? "学生卫生成绩查询" : "按房间录入卫生成绩";
+            if (target === "input") {
+                window.addEventListener("beforeunload", (event) => {
+                    event.preventDefault();
+                });
+            }
+            target === "export" ? exportExcel() : beginInput();
+        }
+    });
 };
 
-if (target === "input") {
-    window.addEventListener("beforeunload", (event) => {
-        event.preventDefault();
-    });
-}
 
 function updateFrames() {
     if (!window.location.href.includes("samis")) {
@@ -126,25 +130,28 @@ function beginInput() {
                     setInterval(() => {
                         updateFrames();
                         checkAndAddBtn();
-                    }, 1000);
+                    }, 500);
+                    addNewRoomListener();
                 }
             });
             return;
+        } else {
+            chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
+                if (data.enabled && data.autoComplete) {
+                    inputFloorAndRoom();
+                    setInterval(() => {
+                        if (checkCurPossition()) {
+                            const beginBtn = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_btnSave");
+                            beginBtn?.addEventListener("click", function () {
+                                checkAndAddBtn();
+                                console.log("Begin to input score.");
+                            });
+                        }
+                    }, 500);
+                    addNewRoomListener();
+                }
+            });
         }
-        chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
-            if (data.enabled && data.autoComplete) {
-                inputFloorAndRoom();
-                setInterval(() => {
-                    if (checkCurPossition()) {
-                        const beginBtn = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_btnSave");
-                        beginBtn.addEventListener("click", function () {
-                            checkAndAddBtn();
-                            console.log("Begin to input score.");
-                        });
-                    }
-                }, 500);
-            }
-        });
     }, 1000);
 }
 
@@ -190,11 +197,11 @@ function addNewRoomListener() {
 
                 const reminder = mainFrame.document.createElement("div");
                 reminder.innerText = "已自动填充";
-                reminder.style = "position: fixed; bottom: 12px; right: 12px; padding: 8px 12px; background-color: #732090; color: #e8e5fa; border-radius: 8px; animation: fadeOut 1s forwards;";
+                reminder.style = "position: fixed; top: 32px; left: 50%; transform: translate(-50%, 0); padding: 8px 16px; background-color: #732090; color: #ffffffee; border-radius: 12px; box-shadow: 0 0 8px #732090; letter-spacing: 1px; font-size: 1.2em; z-index: 9999;";
                 mainFrame.document.body.appendChild(reminder);
                 setTimeout(() => {
                     mainFrame.document.body.removeChild(reminder);
-                }, 1500);
+                }, 2000);
             }
         }
     }, 200);

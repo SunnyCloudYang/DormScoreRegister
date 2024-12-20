@@ -81,6 +81,13 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v3.3.1
+
+#### Fix
+
+- [x] Fix auto completion
+- [x] Fix function enable/disable issue
+
 ### v3.3.0
 
 #### Features
