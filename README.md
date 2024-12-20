@@ -54,6 +54,58 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v3.3.1
+
+#### Fix
+
+- [x] Fix auto completion
+- [x] Fix function enable/disable issue
+
+### v3.3.0
+
+#### Features
+
+- [x] Support webvpn login
+- [x] Support auto completion when moving to the next room
+
+#### Fix
+
+- [x] Optimize version checking
+
+### v3.2.3
+
+#### Fix
+
+- [x] Fix listener lose efficacy
+- [x] Add missing building
+
+### v3.2.2
+
+#### Features
+
+- [x] Support auto completion in delayed score entry
+- [x] Add pop-up hint before exit
+- [x] Optimize stability in update fetching
+
+### v3.1.0
+
+#### Fix
+
+- [x] Adapt to https
+
+### v3.0.0
+
+#### Features
+
+- [x] Support exporting all floors' scores in the building
+- [x] Support checking updates
+
+### v2.1.1
+
+#### Fix
+
+- [x] Fix missing buildings
+
 ### v2.1.0
 
 #### Features
