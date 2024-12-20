@@ -197,7 +197,7 @@ function addNewRoomListener() {
 
                 const reminder = mainFrame.document.createElement("div");
                 reminder.innerText = "已自动填充";
-                reminder.style = "position: fixed; top: 32px; left: 50%; transform: translate(-50%, 0); padding: 8px 16px; background-color: #732090; color: #ffffffee; border-radius: 12px; box-shadow: 0 0 8px #732090; letter-spacing: 1px; font-size: 1.2em; z-index: 9999;";
+                reminder.style = "position: fixed; top: 60px; left: 50%; transform: translate(-50%, 0); padding: 8px 16px; background-color: #732090; color: #ffffffee; border-radius: 12px; box-shadow: 0 0 8px #732090cc; letter-spacing: 1px; font-size: 1.2em; z-index: 9999;";
                 mainFrame.document.body.appendChild(reminder);
                 setTimeout(() => {
                     mainFrame.document.body.removeChild(reminder);
