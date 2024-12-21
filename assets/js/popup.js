@@ -47,14 +47,18 @@ function checkUpdate() {
             .then((response) => response.json())
             .then((data) => {
                 const latestVersion = data?.tag_name?.replace('v', '');
-                if (latestVersion && latestVersion !== currentVersion) {
+                if (latestVersion) {
                     localStorage.setItem('latestVersion', latestVersion);
-                    const updateLink = document.getElementById('update');
-                    updateLink.style.display = 'block';
-                    updateLink.href = data.html_url;
-                    updateLink.addEventListener('click', () => {
-                        chrome.tabs.create({ url: data.html_url });
-                    });
+                    if (latestVersion !== currentVersion) {
+                        const updateLink = document.getElementById('update');
+                        updateLink.style.display = 'block';
+                        updateLink.href = data.html_url;
+                        updateLink.addEventListener('click', () => {
+                            chrome.tabs.create({ url: data.html_url });
+                        });
+                    } else {
+                        document.getElementById('update')?.remove();
+                    }
                 }
             });
     } catch (error) {
