@@ -43,6 +43,10 @@ async function checkForUpdates() {
         }, { once: true }); // Prevents multiple event listeners
     };
 
+    const hideUpdateLink = () => {
+        document.getElementById('update')?.remove();
+    };
+
     // Check cached version first
     const cachedVersion = localStorage.getItem('latestVersion');
     if (cachedVersion && cachedVersion !== currentVersion) {
@@ -59,9 +63,7 @@ async function checkForUpdates() {
         
         if (latestVersion) {
             localStorage.setItem('latestVersion', latestVersion);
-            if (latestVersion !== currentVersion) {
-                showUpdateLink(data.html_url);
-            }
+            latestVersion !== currentVersion ? showUpdateLink(data.html_url) : hideUpdateLink();
         }
     } catch (error) {
         console.error('Failed to check for updates:', error);
