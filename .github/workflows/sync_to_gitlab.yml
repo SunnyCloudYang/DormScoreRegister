@@ -1,0 +1,26 @@
+name: Sync to Tsinghua Git
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+
+      - name: Push to Tsinghua Git
+        env:
+          TSINGHUA_TOKEN: ${{ secrets.TSINGHUA_GIT_TOKEN }}
+        run: |
+          git remote add tsinghua "https://oauth2:${TSINGHUA_TOKEN}@git.tsinghua.edu.cn/yunyang-21/DormScoreRegister.git"
+          git push tsinghua HEAD:main --tags --force
