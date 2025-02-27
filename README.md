@@ -81,6 +81,13 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v3.3.2
+
+#### Features
+
+- [x] Support auto completion for check date
+- [x] Support infer start room number
+
 ### v3.3.1
 
 #### Fix
