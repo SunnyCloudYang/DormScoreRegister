@@ -81,22 +81,19 @@ jobs:
             # Prepare the CURL command
             CURL_CMD="curl --request POST \
               -H \"Content-Type: application/json\" \
-              --header \"PRIVATE-TOKEN: $GITLAB_TOKEN\" \
-              --data \"name=${{ github.ref_name }}\" \
-              --data \"tag_name=${{ github.ref_name }}\" \
-              --data \"description=${{ steps.release.outputs.description }}\""
+              --header \"PRIVATE-TOKEN: $GITLAB_TOKEN\""
             
             json_data=$(
               printf '%s\n' "${assets_array[@]}" \
               | jq -R -n '
-                { links: [inputs | split("=") | { name: .[0], url: .[1] }] }
+                {"name": "${{ github.ref_name }}", "tag_name": "${{ github.ref_name }}", "description": "${{ steps.release.outputs.description }}", "assets": { "links": [inputs | split("=") | { "name": .[0], "url": .[1] }] } }
               '
             )
 
-            CURL_CMD="$CURL_CMD --data \"assets=$json_data\""
+            CURL_CMD="$CURL_CMD --data '$json_data'"
 
             # Execute the final CURL command
             CURL_CMD="$CURL_CMD \"https://git.tsinghua.edu.cn/api/v4/projects/27745/releases\""
-            echo "CURL_CMD=$CURL_CMD"
+            echo $CURL_CMD
             eval $CURL_CMD
           fi
