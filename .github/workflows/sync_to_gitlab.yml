@@ -36,14 +36,6 @@ jobs:
     needs: sync_code
     if: github.event_name == 'release'
     steps:
-      - name: Download Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release download ${{ github.ref_name }} \
-            --repo ${{ github.repository }} \
-            --clobber
-
       - name: Get Release Info
         id: release
         env:
@@ -54,27 +46,49 @@ jobs:
           echo "description<<EOF" >> $GITHUB_OUTPUT
           echo "$(echo "$RESPONSE" | jq -r '.body')" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-
+          
       - name: Create GitLab Release
         env:
           GITLAB_TOKEN: ${{ secrets.TSINGHUA_GIT_TOKEN }}
         run: |
-          curl --request POST \
-            --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-            --data "name=${{ github.ref_name }}" \
-            --data "tag_name=${{ github.ref_name }}" \
-            --data "description=${{ steps.release.outputs.description }}" \
-            "https://git.tsinghua.edu.cn/api/v4/projects/27745/releases"
-
-      - name: Upload Assets to GitLab
-        env:
-          GITLAB_TOKEN: ${{ secrets.TSINGHUA_GIT_TOKEN }}
-        run: |
-          for asset in $(ls); do
-            if [ "$asset" != ".github" ]; then
-              curl --request POST \
-                --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
-                --form "file=@$asset" \
-                "https://git.tsinghua.edu.cn/api/v4/projects/27745/releases/${{ github.ref_name }}/assets/links"
+          # Extract asset details from the release output
+          ASSETS_JSON='${{ steps.release.outputs.assets }}'
+          
+          # Create the release with description only if no assets are available
+          if [ "$ASSETS_JSON" == "null" ] || [ "$ASSETS_JSON" == "" ]; then
+            curl --request POST \
+              --header "PRIVATE-TOKEN: $GITLAB_TOKEN" \
+              --data "name=${{ github.ref_name }}" \
+              --data "tag_name=${{ github.ref_name }}" \
+              --data "description=${{ steps.release.outputs.description }}" \
+              "https://git.tsinghua.edu.cn/api/v4/projects/27745/releases"
+          else
+            # If assets are available, include them in the release
+            ASSET_NAME_0=$(echo $ASSETS_JSON | jq -r '.[0].name // empty')
+            ASSET_URL_0=$(echo $ASSETS_JSON | jq -r '.[0].browser_download_url // empty')
+            
+            CURL_CMD="curl --request POST \
+              --header \"PRIVATE-TOKEN: $GITLAB_TOKEN\" \
+              --data \"name=${{ github.ref_name }}\" \
+              --data \"tag_name=${{ github.ref_name }}\" \
+              --data \"description=${{ steps.release.outputs.description }}\""
+            
+            if [ ! -z "$ASSET_NAME_0" ] && [ ! -z "$ASSET_URL_0" ]; then
+              CURL_CMD="$CURL_CMD \
+              --data \"assets.links[0].name=$ASSET_NAME_0\" \
+              --data \"assets.links[0].url=$ASSET_URL_0\""
+              
+              # Check for a second asset
+              ASSET_NAME_1=$(echo $ASSETS_JSON | jq -r '.[1].name // empty')
+              ASSET_URL_1=$(echo $ASSETS_JSON | jq -r '.[1].browser_download_url // empty')
+              if [ ! -z "$ASSET_NAME_1" ] && [ ! -z "$ASSET_URL_1" ]; then
+                CURL_CMD="$CURL_CMD \
+                --data \"assets.links[1].name=$ASSET_NAME_1\" \
+                --data \"assets.links[1].url=$ASSET_URL_1\""
+              fi
             fi
-          done
+            
+            CURL_CMD="$CURL_CMD \"https://git.tsinghua.edu.cn/api/v4/projects/27745/releases\""
+            eval $CURL_CMD
+          fi
+
