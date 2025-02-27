@@ -52,7 +52,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
           # Capture the assets as a serialized string (name:url)
-          ASSETS_JSON=$(echo "$RESPONSE" | jq -r '.assets | map("\(.name):\(.browser_download_url)") | join(",")')
+          ASSETS_JSON=$(echo "$RESPONSE" | jq -r '.assets | map("\(.name)=\(.browser_download_url)") | join(",")')
 
           echo "assets=$ASSETS_JSON" >> $GITHUB_OUTPUT
 
@@ -89,7 +89,7 @@ jobs:
             json_data=$(
               printf '%s\n' "${assets_array[@]}" \
               | jq -R -n '
-                { links: [inputs | split(":") | { name: .[0], url: .[1] }] }
+                { links: [inputs | split("=") | { name: .[0], url: .[1] }] }
               '
             )
 
