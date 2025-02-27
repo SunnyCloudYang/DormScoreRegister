@@ -22,10 +22,6 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
 
-      - name: Remove Workflows
-        run: |
-          rm -rf .github/workflows
-
       - name: Push to Tsinghua Git
         env:
           TSINGHUA_TOKEN: ${{ secrets.TSINGHUA_GIT_TOKEN }}
