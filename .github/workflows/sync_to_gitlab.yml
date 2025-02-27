@@ -47,12 +47,14 @@ jobs:
           echo "$(echo "$RESPONSE" | jq -r '.body')" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
+          echo "assets=$(echo "$RESPONSE" | jq -r '.assets')" >> $GITHUB_ENV
+
       - name: Create GitLab Release
         env:
           GITLAB_TOKEN: ${{ secrets.TSINGHUA_GIT_TOKEN }}
         run: |
           # Extract asset details from the release output
-          ASSETS_JSON='${{ steps.release.outputs.assets }}'
+          ASSETS_JSON="${{ env.assets }}"
           
           # Create the release with description only if no assets are available
           if [ "$ASSETS_JSON" == "null" ] || [ "$ASSETS_JSON" == "" ]; then
