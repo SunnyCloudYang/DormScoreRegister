@@ -3,7 +3,7 @@ const loginSwitch = document.getElementById('auto-login');
 const inputSwitch = document.getElementById('auto-complete');
 
 updateStatus();
-checkUpdate();
+checkForUpdates();
 
 mainSwitch.addEventListener('change', () => {
     chrome.storage.sync.set({ enabled: mainSwitch.checked });
@@ -28,40 +28,44 @@ function updateStatus() {
     });
 }
 
-function checkUpdate() {
+async function checkForUpdates() {
     const manifestData = chrome.runtime.getManifest();
     const currentVersion = manifestData.version;
-    const latestVersion = localStorage.getItem('latestVersion');
-    if (latestVersion && latestVersion !== currentVersion) {
+
+    // Function to show update link
+    const showUpdateLink = (url) => {
         const updateLink = document.getElementById('update');
         updateLink.style.display = 'block';
-        updateLink.href = 'https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest';
-        updateLink.addEventListener('click', () => {
-            chrome.tabs.create({
-                url: 'https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest',
-            });
-        });
+        updateLink.href = url;
+        updateLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            chrome.tabs.create({ url });
+        }, { once: true }); // Prevents multiple event listeners
+    };
+
+    const hideUpdateLink = () => {
+        document.getElementById('update')?.remove();
+    };
+
+    // Check cached version first
+    const cachedVersion = localStorage.getItem('latestVersion');
+    if (cachedVersion && cachedVersion !== currentVersion) {
+        showUpdateLink('https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest');
     }
+
+    // Check for updates from GitHub API
     try {
-        fetch('https://api.github.com/repos/sunnycloudyang/DormScoreRegister/releases/latest')
-            .then((response) => response.json())
-            .then((data) => {
-                const latestVersion = data?.tag_name?.replace('v', '');
-                if (latestVersion) {
-                    localStorage.setItem('latestVersion', latestVersion);
-                    if (latestVersion !== currentVersion) {
-                        const updateLink = document.getElementById('update');
-                        updateLink.style.display = 'block';
-                        updateLink.href = data.html_url;
-                        updateLink.addEventListener('click', () => {
-                            chrome.tabs.create({ url: data.html_url });
-                        });
-                    } else {
-                        document.getElementById('update')?.remove();
-                    }
-                }
-            });
+        const response = await fetch('https://api.github.com/repos/sunnycloudyang/DormScoreRegister/releases/latest');
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const data = await response.json();
+        const latestVersion = data.tag_name?.replace('v', '');
+        
+        if (latestVersion) {
+            localStorage.setItem('latestVersion', latestVersion);
+            latestVersion !== currentVersion ? showUpdateLink(data.html_url) : hideUpdateLink();
+        }
     } catch (error) {
-        console.error(error);
+        console.error('Failed to check for updates:', error);
     }
 }

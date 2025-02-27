@@ -1,7 +1,7 @@
 {
     "name": "THU Dorm Score Helper",
     "description": "Help manage THU students' dorm score",
-    "version": "3.3.1",
+    "version": "3.3.2",
     "manifest_version": 2,
 
     "author": "SunnyCloudYang",

@@ -79,14 +79,36 @@ function ensureCurPossition() {
 
 function inputFloorAndRoom() {
     try {
+        const checkDate = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_txtCHECK_DATE");
         const floor = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_ddlFLOOR");
         const room = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_txtROOM_ID");
 
+        checkDate.value = getCheckDate();
+
         floor.selectedIndex = 1;
+
+        const roomFinished = localStorage.getItem("roomFinished");
+        const lastCheckDate = localStorage.getItem("checkDate") || "";
+        if (roomFinished && roomFinished[0] === floor.value && lastCheckDate === checkDate.value) {
+            const confirmNext = confirm("上次录入到" + roomFinished + "房间，是否继续录入下一个房间？");
+            if (confirmNext) {
+                room.value = (Number(roomFinished) + 1).toString();
+                reminder("房间号为自动推算，如有错误请手动更改。");
+            }
+        }
         room.value = floor.value + "01";
+
     } catch (error) {
         console.log(error);
     }
+}
+
+function getCheckDate() {
+    const today = new Date();
+    const day = today.getDay();
+    const diff = (day === 4) ? 0 : (day + 3) % 7;
+    const lastThursday = new Date(today.setDate(today.getDate() - diff));
+    return lastThursday.toISOString().split('T')[0];
 }
 
 function exportExcel() {
@@ -123,35 +145,32 @@ function checkAndAddBtn() {
 
 function beginInput() {
     ensureCurPossition();
+    chrome.storage.sync.get(["autoComplete"], (data) => {
+        if (!data.autoComplete) {
+            return;
+        }
+    });
     setTimeout(() => {
         if (window.location.href.includes("samis")) {
-            chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
-                if (data.enabled && data.autoComplete) {
-                    setInterval(() => {
-                        updateFrames();
-                        checkAndAddBtn();
-                    }, 500);
-                    addNewRoomListener();
-                }
-            });
-            return;
+            setInterval(() => {
+                updateFrames();
+                checkAndAddBtn();
+            }, 500);
         } else {
-            chrome.storage.sync.get(["autoComplete", "enabled"], (data) => {
-                if (data.enabled && data.autoComplete) {
-                    inputFloorAndRoom();
-                    setInterval(() => {
-                        if (checkCurPossition()) {
-                            const beginBtn = mainFrame.document.getElementById("WeekScoreByRoomSelCtrl1_btnSave");
-                            beginBtn?.addEventListener("click", function () {
-                                checkAndAddBtn();
-                                console.log("Begin to input score.");
-                            });
-                        }
-                    }, 500);
-                    addNewRoomListener();
+            inputFloorAndRoom();
+            setInterval(() => {
+                if (checkCurPossition()) {
+                    const beginBtn = mainFrame.document.getElementById(
+                        "WeekScoreByRoomSelCtrl1_btnSave"
+                    );
+                    beginBtn?.addEventListener("click", function () {
+                        checkAndAddBtn();
+                        console.log("Begin to input score.");
+                    });
                 }
-            });
+            }, 500);
         }
+        addNewRoomListener();
     }, 1000);
 }
 
@@ -178,6 +197,16 @@ const personalAdvice = {
 }
 const defaultAdvice = "很棒坚持";
 
+function reminder(message) {
+    const reminder = mainFrame.document.createElement("div");
+    reminder.innerText = message.toString();
+    reminder.style = "position: fixed; top: 60px; left: 50%; transform: translate(-50%, 0); padding: 8px 16px; background-color: #732090; color: #ffffffee; border-radius: 12px; box-shadow: 0 0 8px #732090cc; letter-spacing: 1px; font-size: 1.2em; z-index: 9999;";
+    mainFrame.document.body.appendChild(reminder);
+    setTimeout(() => {
+        mainFrame.document.body.removeChild(reminder);
+    }, 2000);
+}
+
 function addBtn() {
     const btn = leftFrame.document.createElement("button");
     btn.id = "autoCompleteBtn";
@@ -194,14 +223,7 @@ function addNewRoomListener() {
             const nextRoomBtn = mainFrame.document.getElementById("WeekScoreByRoomAddCtrl1_btnNextRoom");
             if (nextRoomBtn && nextRoomBtn.style.display !== "none") {
                 injectScript();
-
-                const reminder = mainFrame.document.createElement("div");
-                reminder.innerText = "已自动填充";
-                reminder.style = "position: fixed; top: 60px; left: 50%; transform: translate(-50%, 0); padding: 8px 16px; background-color: #732090; color: #ffffffee; border-radius: 12px; box-shadow: 0 0 8px #732090cc; letter-spacing: 1px; font-size: 1.2em; z-index: 9999;";
-                mainFrame.document.body.appendChild(reminder);
-                setTimeout(() => {
-                    mainFrame.document.body.removeChild(reminder);
-                }, 2000);
+                reminder("已自动填充");
             }
         }
     }, 200);
@@ -212,6 +234,7 @@ function injectScript() {
         autoComplete();
         listenChange();
         hideNextBtn();
+        listenFinish();
     } catch (error) {
         console.log(error);
     }
@@ -229,6 +252,17 @@ function autoComplete() {
     });
     mainFrame.document.querySelectorAll("input.textbox").forEach(element => {
         element.value = defaultAdvice;
+    });
+}
+
+function listenFinish() {
+    const finishBtn = mainFrame.document.getElementById("WeekScoreByRoomAddCtrl1_btnSave");
+    finishBtn.addEventListener("click", function () {
+        const room = mainFrame.document.getElementById(
+            "WeekScoreByRoomAddCtrl1_Repeater1_ctl00_trROOM"
+        ).value.match(/\d+/)[0];
+        localStorage.setItem("roomFinished", room);
+        localStorage.setItem("checkDate", getCheckDate());
     });
 }
 
