@@ -36,8 +36,6 @@ jobs:
     needs: sync_code
     if: github.event_name == 'release'
     steps:
-      - name: Install GitHub CLI
-        run: actions/setup-cli@v1
       - name: Download Release
         run: |
           gh release download ${{ github.ref_name }} \
