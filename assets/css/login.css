@@ -2,10 +2,10 @@
     --primary-color: #bb4cdd;
     --secondary-color: #a221cc;
     --tertiary-color: #8203b9;
-    --radius-large: 20px;
-    --radius-medium: 10px;
-    --radius-small: 5px;
-    --radius-xsmall: 2px;
+    --radius-large: 24px;
+    --radius-medium: 12px;
+    --radius-small: 8px;
+    --radius-xsmall: 4px;
 }
 
 div#pop-window {
@@ -20,22 +20,29 @@ div#pop-window {
 
 div.select-panel {
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 50%;
-    min-width: max-content;
+    min-width: 256px;
     z-index: 101;
     border-radius: var(--radius-large);
     padding: 10px;
     background-color: rgba(255,255,255,0.86);
     transform: translate(-50%, -50%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
 }
 
 div.select-panel > div.close {
     position: absolute;
     top: 0;
     right: 0;
-    margin: 5px 10px;
-    padding: 0px 5px;
+    height: 1rem;
+    width: 1rem;
+    margin: 12px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: var(--radius-medium);
+    line-height: 1rem;
     cursor: pointer;
     color: #888;
     font-size: 20px;
@@ -44,6 +51,7 @@ div.select-panel > div.close {
 
 div.select-panel > div.close:hover {
     color: #222;
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 div.select-panel h2 {
@@ -55,7 +63,7 @@ div.select-panel > div {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8px 20px;
+    padding: 8px;
 }
 
 div.form-group {
@@ -97,7 +105,9 @@ div.form-group > select:focus {
 
 div.select-panel > div.panel-footer {
     display: flex;
-    flex-direction: row;
+    row-gap: 12px;
+    padding: 4px;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -107,8 +117,9 @@ div.select-panel > div.panel-footer > button {
 }
 
 button.btn {
+    width: 100%;
     border: none;
-    border-radius: var(--radius-large);
+    border-radius: var(--radius-medium);
     padding: 8px 16px;
     background-color: #007bff;
     color: #fff;

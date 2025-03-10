@@ -81,6 +81,13 @@ If you have any questions or suggestions, please feel free to [contact me](mailt
 
 ## Change Log
 
+### v3.3.3
+
+#### Features
+
+- [x] Add link to csv formatter
+- [x] Apply update check limit
+
 ### v3.3.2
 
 #### Features

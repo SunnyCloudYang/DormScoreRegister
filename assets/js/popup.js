@@ -51,9 +51,11 @@ async function checkForUpdates() {
     const cachedVersion = localStorage.getItem('latestVersion');
     if (cachedVersion && cachedVersion !== currentVersion) {
         showUpdateLink('https://github.com/SunnyCloudYang/DormScoreRegister/releases/latest');
+        return;
     }
 
     // Check for updates from GitHub API
+    if (localStorage.getItem('lastChecked') && Date.now() - localStorage.getItem('lastChecked') < 600000) return;
     try {
         const response = await fetch('https://api.github.com/repos/sunnycloudyang/DormScoreRegister/releases/latest');
         if (!response.ok) throw new Error('Network response was not ok');
@@ -63,6 +65,7 @@ async function checkForUpdates() {
         
         if (latestVersion) {
             localStorage.setItem('latestVersion', latestVersion);
+            localStorage.setItem('lastChecked', Date.now());
             latestVersion !== currentVersion ? showUpdateLink(data.html_url) : hideUpdateLink();
         }
     } catch (error) {
