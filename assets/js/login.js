@@ -1,5 +1,7 @@
 function popWindow() {
     let [region, building, floor, pwdSuffix] = parseParamFromUrl();
+    const manifestData = chrome.runtime.getManifest();
+    const currentVersion = manifestData.version;
     const div = document.createElement("div");
 
     div.setAttribute("id", "pop-window");
@@ -10,6 +12,7 @@ function popWindow() {
             </div>
             <div class="panel-header">
                 <h2>成绩管理</h2>
+                <span>v${currentVersion}</span>
             </div>
             <div class="panel-body">
                 <div class="form-group">
@@ -73,6 +76,9 @@ function popWindow() {
                         <option>6</option>
                         <option>7</option>
                         <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -84,8 +90,9 @@ function popWindow() {
                 </div>
             </div>
             <div class="panel-footer">
-                <button type="submit" class="btn btn-primary" id="input-btn">去录入</button>
-                <button type="submit" class="btn btn-secondary" id="export-btn">去导出</button>
+                <button type="submit" class="btn btn-primary" id="input-btn">去录入/去核查</button>
+                <button type="submit" class="btn btn-secondary" id="export-btn" label="自动登录和导出该楼每一层的成绩">导出全楼成绩</button>
+                <button type="button" class="btn btn-danger" id="formatter-btn">已导出，去排版</button>
             </div>
         </div>
     `;
@@ -149,6 +156,11 @@ function popWindow() {
         }
 
         inputInfo(region, building, floor, pwdSuffix);
+    });
+
+    const formatterBtn = document.getElementById("formatter-btn");
+    formatterBtn.addEventListener("click", () => {
+        window.open("http://origakid.top/DormScoreFormatter/", "_blank");
     });
 
     if (building !== 0) {

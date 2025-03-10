@@ -17,6 +17,10 @@
                 {
                     "version": "3.3.2",
                     "update_link": "https://github.com/SunnyCloudYang/DormScoreRegister/releases/download/v3.3.2/DormScoreRegister-Firefox.xpi"
+                },
+                {
+                    "version": "3.3.3",
+                    "update_link": "https://github.com/SunnyCloudYang/DormScoreRegister/releases/download/v3.3.3/DormScoreRegister-Firefox.xpi"
                 }
             ]
         }
