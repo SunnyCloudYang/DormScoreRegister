@@ -1,10 +1,7 @@
-var enabled = true;
-var autoLogin = true;
-var autoComplete = true;
-
 chrome.runtime.onInstalled.addListener(() => {
-    localStorage.removeItem('latestVersion');
-    localStorage.removeItem('lastChecked');
+    let enabled = true;
+    let autoLogin = true;
+    let autoComplete = true;
     chrome.storage.sync.set({ enabled, autoLogin, autoComplete }, () => {
         console.log('The extension has been installed.');
     });
